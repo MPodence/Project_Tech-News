@@ -64,13 +64,16 @@ def get_tech_news(amount):
     links = []
     news = []
     content = fetch("https://blog.betrybe.com")
-    while len(news) != amount:
+    # Primeiro pegamos a quantidade de links equivalente ao amount inserido
+    while len(links) < amount:
         links.extend(scrape_updates(content))
-        for link in links:
+        next = scrape_next_page_link(content)
+        content = fetch(next)
+    # Depois pegamos a noticia de cada link até dar o amount
+    for link in links:
+        if len(news) < amount:
             current_content = fetch(link)
             new = scrape_news(current_content)
             news.append(new)
-        next = scrape_next_page_link(content)
-        content = fetch(next)
     create_news(news)
     return news

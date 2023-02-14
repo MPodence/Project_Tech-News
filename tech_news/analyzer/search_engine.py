@@ -1,4 +1,5 @@
 from tech_news.database import search_news
+from datetime import datetime
 
 
 # Requisito 7
@@ -14,7 +15,18 @@ def search_by_title(title: str):
 
 # Requisito 8
 def search_by_date(date):
-    """Seu código deve vir aqui"""
+    try:
+        data = []
+        formated_date = datetime.strptime(
+            date, '%Y-%m-%d').strftime('%d/%m/%Y')
+        # https://www.programiz.com/python-programming/datetime/strftime
+        # ref do funcionamento do strftime para formatar a data
+        news = search_news({"timestamp": formated_date})
+        for new in news:
+            data.append((new["title"], new["url"]))
+        return data
+    except Exception:
+        raise ValueError('Data inválida')
 
 
 # Requisito 9

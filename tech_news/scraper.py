@@ -35,7 +35,7 @@ def scrape_news(html_content):
     content = Selector(text=html_content)
     new = {
         "url": content.css("link[rel='canonical'] ::attr(href)").get(),
-        #  https://stackoverflow.com/questions/52849274/getting-the-current-url-page-ref-scrapy
+        # https://stackoverflow.com/questions/52849274/getting-the-current-url-page-ref-scrapy
         "title": content.css(".entry-title ::text").get().strip(),
         "timestamp": content.css(
             ".cs-bg-dark > ul > li.meta-date ::text"
@@ -47,7 +47,7 @@ def scrape_news(html_content):
         "summary": "".join(content.css(
             "div.entry-content > p:nth-of-type(1) *::text"
         ).getall()).strip(),
-        #  https://developer.mozilla.org/pt-BR/docs/Web/CSS/:nth-of-type
+        # https://developer.mozilla.org/pt-BR/docs/Web/CSS/:nth-of-type
         "category": content.css(
             ".cs-bg-dark > div > div > a > span.label ::text"
         ).get()

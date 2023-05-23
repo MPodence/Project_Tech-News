@@ -5,7 +5,6 @@ from requests.exceptions import HTTPError, ConnectTimeout, Timeout
 from tech_news.database import create_news
 
 
-# Requisito 1
 def fetch(url):
     time.sleep(1)
     try:
@@ -20,21 +19,18 @@ def fetch(url):
     return res.text
 
 
-# Requisito 2
 def scrape_updates(html_content):
     content = Selector(text=html_content)
     hrefs = content.css("a.cs-overlay-link ::attr(href)").getall()
     return hrefs
 
 
-# Requisito 3
 def scrape_next_page_link(html_content):
     content = Selector(text=html_content)
     next_page = content.css("a.next.page-numbers ::attr(href)").get()
     return next_page
 
 
-# Requisito 4
 def scrape_news(html_content):
     content = Selector(text=html_content)
     new = {
@@ -59,7 +55,6 @@ def scrape_news(html_content):
     return new
 
 
-# Requisito 5
 def get_tech_news(amount):
     links = []
     news = []
